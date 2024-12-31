@@ -1,5 +1,3 @@
-const getAll = () => {};
+const books = require("./books");
 
-module.exports = {
-  getAll,
-};
+console.log(books);
