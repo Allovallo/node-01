@@ -15,9 +15,20 @@ const getById = async (id) => {
   return result || null;
 };
 
-const add = async () => {};
+const add = async () => {
+  const books = await getAll();
+
+  const newBook = {
+    id: nanoid(),
+    ...data,
+  };
+  books.push(newBook);
+  await fs.writeFile(booksPath, JSON.stringify(books));
+  return newBook;
+};
 
 module.exports = {
   getAll,
   getById,
+  add,
 };

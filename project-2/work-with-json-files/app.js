@@ -10,6 +10,7 @@ const invokeAction = async ({ action, id, title, author }) => {
       return console.log(oneBook);
     case "add":
       const newBook = await books.add({ title, author });
+      console.log(newBook);
   }
 };
 
