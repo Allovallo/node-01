@@ -10,10 +10,26 @@ const invokeAction = async ({ action, id, title, author }) => {
       return console.log(oneBook);
     case "add":
       const newBook = await books.add({ title, author });
-      console.log(newBook);
+      return console.log(newBook);
+    case "updateById":
+      const updateBook = await books.updateById(id, { title, author });
+      return console.log(updateBook);
+    case "deleteById":
+      const deleteBook = await books.deleteById(id);
+      return console.log(deleteBook);
   }
 };
 
 // invokeAction({ action: "read" });
 // invokeAction({ action: "getById", id: "u9kgwNWGi3uUUwh0b8V49" });
-invokeAction({ action: "add", title: "Worm", author: "John C. McCrae" });
+// invokeAction({ action: "add", title: "Worm", author: "John C. McCrae" });
+// invokeAction({
+//   action: "updateById",
+//   id: "aBrGveXXskQnRnhl5HRtp",
+//   title: "Wildbow",
+//   author: "John C. McCrae",
+// });
+// invokeAction({
+//   action: "deleteById",
+//   id: "aBrGveXXskQnRnhl5HRtp",
+// });
