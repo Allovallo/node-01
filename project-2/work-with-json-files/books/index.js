@@ -17,7 +17,6 @@ const getById = async (id) => {
 
 const add = async (data) => {
   const books = await getAll();
-
   const newBook = {
     id: nanoid(),
     ...data,
