@@ -1,13 +1,28 @@
 const express = require("express");
 const cors = require("cors");
 
-const booksRouter = require("./routes/api/books");
+const books = require("./books");
 
 const app = express();
 
 app.use(cors());
 
-app.use("/api/books", booksRouter);
+app.get("/api/books", (req, res) => {
+  res.json(books);
+});
 
-app.listen(3000);
+app.get("/api/books/:id", (req, res) => {
+  res.json(books[0]);
+});
 
+app.post("/api/books", (req, res) => {
+  res.json(books[0]);
+});
+
+app.put("/api/books/:id", (req, res) => {
+  res.json(books[0]);
+});
+
+app.delete("/api/books/:id", (req, res) => {
+  res.json(books[0]);
+});
