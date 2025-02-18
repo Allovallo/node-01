@@ -7,6 +7,6 @@ const app = express();
 
 app.use(cors());
 
-app.use("api/books/", booksRouter);
+app.use("/api/books", booksRouter);
 
 app.listen(3000);
