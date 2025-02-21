@@ -9,6 +9,11 @@ const usersRouter = require("./routes/users");
 
 const app = express();
 
+require("dotenv").config();
+// console.log(process.env);
+// console.log(process.env.SECRET_KEY);
+// console.log(process.env.NODE_ENV);
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
