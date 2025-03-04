@@ -1,10 +1,16 @@
 const express = require("express");
+const Joi = require("joi");
 
 const books = require("../../models/books");
 
 const { HttpError } = require("../../helpers");
 
 const router = express.Router();
+
+const addSchema = Joi.object({
+  title: Joi.string().required(),
+  author: Joi.string().required(),
+});
 
 router.get("/", async (req, res) => {
   try {
@@ -32,8 +38,22 @@ router.get("/:id", async (req, res, next) => {
     res.json(result);
   } catch (error) {
     next(error);
+
     // const { status = 500, message = "server error" } = error;
     // res.status(status).json({ message: message });
+  }
+});
+
+router.post("/", async (req, res, next) => {
+  try {
+    const { error } = addSchema.validate(req.body);
+    if (error) {
+      throw HttpError(400, error.message);
+    }
+    const result = await books.add(req.body);
+    res.status(201).json(result);
+  } catch (error) {
+    next(error);
   }
 });
 
