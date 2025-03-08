@@ -1,0 +1,3 @@
+{
+    "ignore": ["nodemon_modules", "models/contacts.json"]
+}
