@@ -1,4 +1,5 @@
 const express = require("express");
+const Joi = require("joi");
 
 const books = require("../../models/books");
 
@@ -6,34 +7,46 @@ const { HttpError } = require("../../helpers");
 
 const router = express.Router();
 
+const addSchema = Joi.object({
+  title: Joi.string().required(),
+  author: Joi.string().required(),
+});
+
 router.get("/", async (req, res) => {
   try {
     const result = await books.getAll();
     res.json(result);
   } catch (error) {
-    res.status(500).json({ message: "SERVER ERRORR!!!" });
+    next(error);
+    // res.status(500).json({ message: "SERVER ERRORR!!!" });
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     const result = await books.getById(id);
 
     if (!result) {
-      // throw HttpError(404, "NOT FOUND(");
-
-      const error = new Error("NOT FOUND");
-      error.status = 404;
-      throw error;
-
-      // return res.status(404).json({ message: "Not found!!!" });
+      throw HttpError(404, "NOT FOUND");
     }
 
     res.json(result);
   } catch (error) {
-    const { status = 500, message = "SERVER ERRORR!!!" } = error;
-    res.status(status).json({ message: message });
+    next(error);
+    // const { status = 500, message = "SERVER ERRORR!!!" } = error;
+    // res.status(status).json({ message: message });
+  }
+});
+
+router.post("/", async (req, res, next) => {
+  try {
+    const { error } = addSchema.validate(req.body);
+    if (error) {
+      throw HttpError(400, error.message);
+    }
+  } catch (error) {
+    next(error);
   }
 });
 
