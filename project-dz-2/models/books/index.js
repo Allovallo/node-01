@@ -3,7 +3,6 @@ const path = require("path");
 const { nanoid } = require("nanoid");
 
 const booksPath = path.join(__dirname, "books.json");
-// console.log(__dirname);
 
 const getAll = async () => {
   const data = await fs.readFile(booksPath);
