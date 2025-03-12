@@ -1,13 +1,6 @@
-const Joi = require("joi");
-
 const books = require("../models/books");
 
 const { HttpError, ctrlWrapper } = require("../helpers");
-
-const addSchema = Joi.object({
-  title: Joi.string().required(),
-  author: Joi.string().required(),
-});
 
 const getAll = async (_, res) => {
   const result = await books.getAll();
@@ -26,20 +19,11 @@ const getById = async (req, res) => {
 };
 
 const add = async (req, res) => {
-  const { error } = addSchema.validate(req.body);
-  if (error) {
-    throw HttpError(400, error.message);
-  }
   const result = await books.add(req.body);
   res.status(201).json(result);
 };
 
 const updateById = async (req, res) => {
-  const { error } = addSchema.validate(req.body);
-  if (error) {
-    throw HttpError(400, error.message);
-  }
-
   const { id } = req.params;
   const result = await books.updateById(id, req.body);
 
