@@ -18,7 +18,6 @@ router.get("/", async (req, res) => {
     res.json(result);
   } catch (error) {
     next(error);
-    // res.status(500).json({ message: "Server error" });
   }
 });
 
@@ -28,19 +27,10 @@ router.get("/:id", async (req, res, next) => {
     const result = await books.getById(id);
     if (!result) {
       throw HttpError(404, "Not found!");
-
-      // const error = new Error("Not found!");
-      // error.status = 404;
-      // throw error;
-
-      // return res.status(404).json({ message: "Not found!" });
     }
     res.json(result);
   } catch (error) {
     next(error);
-
-    // const { status = 500, message = "server error" } = error;
-    // res.status(status).json({ message: message });
   }
 });
 
