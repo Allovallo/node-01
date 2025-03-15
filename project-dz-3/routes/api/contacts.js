@@ -1,15 +1,15 @@
 const express = require("express");
 
-const contacts = require("../../models/contacts.json");
+const contacts = require("../../models/");
 
 const router = express.Router();
 
-router.get("/", async (req, res, next) => {
+router.get("/", async (req, res) => {
   try {
     const result = await contacts.getAll();
     res.json(result);
   } catch (error) {
-    next(error);
+    console.log("Lil Error!");
   }
 });
 
