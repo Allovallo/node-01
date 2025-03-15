@@ -1,6 +1,6 @@
 const fs = require("fs/promises");
 const path = require("path");
-// const { nanoid } = require("nanoid");
+const { nanoid } = require("nanoid");
 
 const contactsPath = path.join(__dirname, "contacts.json");
 
@@ -9,4 +9,10 @@ const getAll = async () => {
   return JSON.parse(data);
 };
 
-module.exports = { getAll };
+const getById = async (id) => {
+  const contacts = await getAll();
+  const result = contacts.find((item) => item.id === id);
+  return result || null;
+};
+
+module.exports = { getAll, getById };
