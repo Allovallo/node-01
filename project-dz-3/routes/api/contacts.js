@@ -1,9 +1,15 @@
 const express = require("express");
+const Joi = require("joi");
 
 const contacts = require("../../models/");
 const { HttpError } = require("../../helpers");
 
 const router = express.Router();
+
+const addSchema = Joi.object({
+  name: Joi.string().required(),
+  email: Joi.string().email({ minDomainSegments: 2 }).required(),
+});
 
 router.get("/", async (req, res) => {
   try {
@@ -20,14 +26,22 @@ router.get("/:id", async (req, res, next) => {
     const result = await contacts.getById(id);
     if (!result) {
       throw HttpError(404, "Not found!!!");
-      // const error = new Error("Not found!!!");
-      // error.status = 404;
-      // throw error;
     }
     res.json(result);
   } catch (error) {
-    // const { status = 500, message = "SERVER ERRORR" } = error;
-    // res.status(status).json({ message });
+    next(error);
+  }
+});
+
+router.post("/", async (req, res, next) => {
+  try {
+    const { error } = addSchema.validate(req.body);
+    if (error) {
+      throw HttpError(404, error.message);
+    }
+    const result = await contacts.add(req.body);
+    res.status(201).json(result);
+  } catch (error) {
     next(error);
   }
 });

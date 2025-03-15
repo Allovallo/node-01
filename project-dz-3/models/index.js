@@ -15,4 +15,15 @@ const getById = async (id) => {
   return result || null;
 };
 
-module.exports = { getAll, getById };
+const add = async (data) => {
+  const contacts = await getAll();
+  const newContact = {
+    id: nanoid(),
+    ...data,
+  };
+  contacts.push(newContact);
+  await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
+  return newContact;
+};
+
+module.exports = { getAll, getById, add };
