@@ -21,11 +21,5 @@
     "name": "Jo Bro",
     "email": "jo@test.com",
     "phone": "(542) 444-7231"
-  },
-  {
-    "id": "5",
-    "name": "Lil Big",
-    "email": "big@test.com",
-    "phone": "(542) 555-6754"
   }
 ]
