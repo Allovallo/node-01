@@ -1,15 +1,11 @@
 // CommonJS
 // const nodemon = require("nodemon");
 
-const obj = require("./users");
-// console.log(obj);
+// const users = require("./users");
+// console.log(users)
 
-const { admins } = require("./users");
-// console.log(admins);
+// const { admins } = require("./users");
+// console.log(admins)
 
-// const { getCurrentMonth } = require("./date");
-// const currentMonth = getCurrentMonth();
-// console.log(`Now is ${currentMonth} month`);
-
-const currentMonth = require("./date").getCurrentMonth();
-console.log(`Now is ${currentMonth} month`);
+const { clients } = require("./users");
+console.log(clients);
