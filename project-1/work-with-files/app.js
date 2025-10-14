@@ -1,4 +1,6 @@
-const fs = require("fs/promises");
+// const fs = require("fs/promises");
+const fs = require("fs").promises;
+
 
 // fs.readFile("./files/file.txt", (error, data) => {
 //   console.log(error);
@@ -9,9 +11,31 @@ const fs = require("fs/promises");
 //   .then((data) => console.log(data))
 //   .catch((error) => console.log(error.message));
 
+/*
 const readFile = async () => {
-  const data = await fs.readFile("./files/file.txt");
-  console.log(data);
+  // const buffer = await fs.readFile("./files/file.txt");
+  // const text = buffer.toString();
+  // console.log(text);
+
+  const text = await fs.readFile("./files/file.txt", "utf-8");
+  console.log(text)
 };
 
 readFile();
+*/
+
+/*
+const addText = async () => {
+  const result = await fs.appendFile("./files/file.txt", "\nШмегель");
+  console.log(result)
+}
+
+addText();
+*/
+
+const replaceText = async () => {
+  const result = await fs.writeFile("./files/file.txt", "Gogol");
+  console.log(result)
+}
+
+replaceText();
