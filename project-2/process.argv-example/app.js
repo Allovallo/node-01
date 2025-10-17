@@ -1,3 +1,6 @@
+const yargs = require("yargs");
+const {hideBin} = require("yargs/helpers")
+
 const books = require("./books");
 
 const invokeAction = async ({ action, id, title, author }) => {
@@ -22,8 +25,12 @@ const invokeAction = async ({ action, id, title, author }) => {
   }
 };
 
-const actionIndex = process.argv.indexOf("--action");
-if (actionIndex !== -1) {
-  const action = process.argv[actionIndex + 1];
-  invokeAction({ action });
-}
+const arr = hideBin(process.argv);
+const {argv} = yargs(arr);
+console.log(argv);
+
+// const actionIndex = process.argv.indexOf("--action");
+// if (actionIndex !== -1) {
+//   const action = process.argv[actionIndex + 1];
+//   invokeAction({ action });
+// }
