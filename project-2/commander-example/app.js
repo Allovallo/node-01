@@ -28,7 +28,7 @@ program
   .option("-a, --action, <type>")
   .option("-i, --id, <type>")
   .option("-t, --title, <type>")
-  .option("--author, <type>");
+  .option("-u, --author, <type>");
 
 program.parse();
 

@@ -11,7 +11,7 @@ const getAll = async () => {
 
 const getById = async (id) => {
     const books = await getAll();
-    const result = books.find(item => item.id === id);
+    const result = books.find((item) => item.id === id);
     return result || null;
 }
 

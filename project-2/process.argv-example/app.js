@@ -26,8 +26,9 @@ const invokeAction = async ({ action, id, title, author }) => {
 };
 
 const arr = hideBin(process.argv);
-const {argv} = yargs(arr);
-console.log(argv);
+const { argv } = yargs(arr);
+console.log(argv)
+invokeAction(argv);
 
 // const actionIndex = process.argv.indexOf("--action");
 // if (actionIndex !== -1) {
