@@ -1,7 +1,8 @@
 const readline = require("readline");
-const fs = require("fs").promises;
-const { program } = require("commander");
+const fs = require("fs/promises");
 require("colors");
+
+const { program } = require("commander");
 
 program.option(
   "-f, --file [type]",
@@ -22,11 +23,11 @@ const mind = Math.floor(Math.random() * 10) + 1;
 
 const isValid = (value) => {
   if (isNaN(value)) {
-    console.log("Введіть число!".red);
+    console.log("Число має бути в діапазоні від 1 до 10!".red);
     return false;
   }
   if (value < 1 || value > 10) {
-    console.log("Число повинно бути в діапазоні від 1 до 10".red);
+    console.log("Число має бути в діапазоні від 1 до 10!".red);
     return false;
   }
   return true;
@@ -36,7 +37,7 @@ const log = async (data) => {
   try {
     await fs.appendFile(logFile, `${data}\n`);
     console.log(`Вдалося зберегти результат у файл ${logFile}`.green);
-  } catch (err) {
+  } catch (error) {
     console.log(`Не вдалося зберегти файл ${logFile}`.red);
   }
 };
@@ -44,17 +45,21 @@ const log = async (data) => {
 const game = () => {
   rl.question(
     "Введіть число від 1 до 10, щоб вгадати задумане: ".yellow,
+
     (value) => {
       let a = +value;
       if (!isValid(a)) {
         game();
         return;
       }
+
       count += 1;
+
       if (a === mind) {
-        console.log("Вітаю, Ви вгадали число за %d крок(ів)".green, count);
+        console.log("Вітаю, ви вгадали число за %d крок(ів)!".green, count);
+
         log(
-          `${new Date().toLocaleDateString()}: Вітаю, Ви вгадали число за ${count} крок(ів)`
+          `${new Date().toLocaleDateString()}: Вітаю, ви вгадали число за ${count} крок(ів)!`
         ).finally(() => rl.close());
         return;
       }
