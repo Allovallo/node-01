@@ -19,7 +19,7 @@ let count = 0;
 
 const logFile = program.opts().file;
 
-const mind = Math.floor(Math.random() * 10) + 1;
+const mind = Math.floor(Math.random() * 10) + 1; 
 
 const isValid = (value) => {
   if (isNaN(value)) {
