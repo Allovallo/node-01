@@ -1,3 +1,5 @@
+const { program } = require("commander");
+
 const books = require("./books");
 
 const invokeAction = async ({ action, id, title, author }) => {
@@ -29,4 +31,17 @@ const invokeAction = async ({ action, id, title, author }) => {
 //   title: "XXX",
 //   author: "YYY",
 // });
-invokeAction({ action: "deleteById", id: "yozG-a-B8kfQljs5dJa95" });
+// invokeAction({ action: "deleteById", id: "yozG-a-B8kfQljs5dJa95" });
+
+program
+  .option("-a, --action <type>")
+  .option("-i, --id <type>")
+  .option("-t, --title <type>")
+  .option("-u, --author <type>");
+
+program.parse();
+
+const options = program.opts();
+// console.log(options);
+
+invokeAction(options);
