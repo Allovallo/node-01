@@ -16,18 +16,17 @@ const rl = readline.createInterface({
 });
 
 let count = 0;
-
 const logFile = program.opts().file;
-
-const mind = Math.floor(Math.random() * 10) + 1; 
+const mind = Math.floor(Math.random() * 10) + 1;
 
 const isValid = (value) => {
   if (isNaN(value)) {
-    console.log("Введіть число!".red);
+    console.log("Введить число".red);
     return false;
   }
+
   if (value < 1 || value > 10) {
-    console.log("Введіть число від 1 до 10!".red);
+    console.log("Число має бути в диапазоні від 1 до 10".red);
     return false;
   }
   return true;
@@ -35,7 +34,7 @@ const isValid = (value) => {
 
 const log = async (data) => {
   try {
-    await fs.appendFile(logFile, `${data}\n`);
+    await fs.appendFile(logFile, `${data}`);
     console.log(`Вдалося зберегти результат в файл ${logFile}`.green);
   } catch (error) {
     console.log(`Не вдалося зберегти файл ${logFile}`.red);
@@ -57,19 +56,13 @@ const game = () => {
       count += 1;
 
       if (a === mind) {
-        console.log(
-          `Вітаю, ви вгадали число за ${count} крок(ів)`.green
-        );
-
+        console.log(`Вітаю, Ви вгадали число за ${count} кроків!`.green);
         log(
-          `${new Date().toLocaleDateString()}: Вітаю, ви вгадали число за ${count} крок(ів)`
+          `${new Date().toLocaleDateString()}: Вітаю, Ви вгадали за число за ${count} крок(ів)!`
         ).finally(() => rl.close());
-
         return;
       }
-
       console.log("Ви не вгадали, ще спроба".red);
-
       game();
     }
   );
