@@ -2,16 +2,16 @@ const http = require("http");
 // request - объект, описывающий весь запрос
 // response - объект, описывающий весь ответ
 
-const server = http.createServer((request, response)=>{
-    const {url} = request;
-    if(url === "/"){
-        response.write("<h2>Home page</h2>");
-    } else if(url === "/contacts") {
-        response.write("<h2>Contacts page</h2>");
-    } else {
-        response.write("<h2>Not found</h2>");
-    }
-    response.end();
+const server = http.createServer((request, response) => {
+  const { url } = request;
+  if (url === "/") {
+    response.write("<h1>Home page</h1>");
+  } else if (url === "/contacts") {
+    response.write("<h1>Contacts page</h1>");
+  } else {
+    response.write("<h1>Not found(</h1>");
+  }
+  response.end();
 });
 
 // const server = http.createServer((request, response)=>{
@@ -23,6 +23,6 @@ const server = http.createServer((request, response)=>{
 //     response.end();
 // });
 
-server.listen(3000, ()=> {
-    console.log("Сервер запущен!");
+server.listen(3000, () => {
+  console.log("Сервер запущен!");
 });

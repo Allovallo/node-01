@@ -5,6 +5,7 @@ const books = require("./books");
 const app = express();
 
 app.get("/books", (req, res) => {
+  // res.send(books);
   res.json(books);
 });
 
