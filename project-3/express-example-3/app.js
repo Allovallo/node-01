@@ -1,6 +1,7 @@
 const express = require("express");
 const moment = require("moment");
 const fs = require("fs/promises");
+const cors = require("cors");
 
 const books = require("./books");
 
@@ -16,19 +17,30 @@ const app = express();
 //   next();
 // });
 
-app.use(async (req, res, next) => {
-  const { method, url } = req;
-  const date = moment().format("DD-MM-YYYY_hh:mm:ss");
-  await fs.appendFile("./public/server.log", `\n${method} ${url} ${date}`);
-  next();
-});
+// app.use(async (req, res, next) => {
+//   const { method, url } = req;
+//   const date = moment().format("DD-MM-YYYY_hh:mm:ss");
+//   await fs.appendFile("./public/server.log", `\n${method} ${url} ${date}`);
+//   next();
+// });
+
+// const cordMiddleware = cors();
+// app.use(cordMiddleware);
+
+app.use(cors());
 
 app.get("/products", (req, res) => {
   res.json([]);
 });
 
 app.get("/books", (req, res) => {
-  res.json(books);
+  res.status(404).json(books);
 });
 
-app.listen(3000);
+app.use((req, res) => {
+  res.json({
+    message: "Not found!",
+  });
+});
+
+app.listen(3001);
