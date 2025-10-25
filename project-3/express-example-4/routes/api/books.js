@@ -1,8 +1,7 @@
 const express = require("express");
-
 const books = require("../../data/books");
 
-const router = express.Router();
+const router = express();
 
 router.get("/", (req, res) => {
   res.json(books);
@@ -20,7 +19,7 @@ router.put("/:id", (req, res) => {
   res.json(books[0]);
 });
 
-router.delete(":id", (req, res) => {
+router.delete("/:id", (req, res) => {
   res.json(books[0]);
 });
 

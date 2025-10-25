@@ -12,7 +12,7 @@ const addSchema = Joi.object({
     author: Joi.string().required(),
 })
 
-router.get("/", async(req, res)=> {
+router.get("/", async(req, res, next)=> {
     try {
         const result = await books.getAll();
         res.json(result);
