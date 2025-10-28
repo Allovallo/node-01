@@ -28,17 +28,10 @@ router.get("/:id", async (req, res, next) => {
 
     if (!result) {
       throw HttpError(404, "Not found!");
-      //   const error = new Error("Not found!");
-      //   error.status = 404;
-      //   throw error;
-
-      //   return res.status(404).json({ message: "Not found" });
     }
 
     res.json(result);
   } catch (error) {
-    // const { status = 500, message = "Server ERRORR" } = error;
-    // res.status(status).json({ message: message });
     next(error);
   }
 });
@@ -51,6 +44,25 @@ router.post("/", async (req, res, next) => {
     }
     const result = await books.add(req.body);
     res.status(201).json(result);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.put("/:id", async (req, res, next) => {
+  try {
+    // const { error } = addSchema.validate(req.body);
+    // if (error) {
+    //   throw HttpError(400, error.message);
+    // }
+
+    const { id } = req.params;
+    const result = await books.updateById(id, req.body);
+    if (!result) {
+      throw HttpError(404, "Not found");
+    }
+
+    res.json(result);
   } catch (error) {
     next(error);
   }
