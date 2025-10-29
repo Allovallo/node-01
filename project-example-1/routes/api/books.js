@@ -77,7 +77,7 @@ router.delete("/:id", async (req, res, next) => {
       throw HttpError(404, "Not found!");
     }
 
-    res.json({message: "Delete successfull!!!"})
+    res.json({ message: "Delete successfull!!!" });
   } catch (error) {
     next(error);
   }
