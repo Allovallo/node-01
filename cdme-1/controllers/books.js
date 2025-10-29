@@ -1,17 +1,14 @@
-const express = require("express");
 const Joi = require("joi");
 
-const books = require("../../models/books");
-const { HttpError } = require("../../helpers");
-
-const router = express.Router();
+const books = require("../models/books");
+const { HttpError } = require("../helpers");
 
 const addSchema = Joi.object({
   title: Joi.string().required(),
   author: Joi.string().required(),
 });
 
-router.get("/", async (req, res, next) => {
+const getAll = async (req, res, next) => {
   try {
     const result = await books.getAll();
     res.json(result);
@@ -19,9 +16,9 @@ router.get("/", async (req, res, next) => {
     // res.status(500).json({ message: "Server ERRORR" });
     next(error);
   }
-});
+};
 
-router.get("/:id", async (req, res, next) => {
+const getById = async (req, res, next) => {
   try {
     const { id } = req.params;
     const result = await books.getById(id);
@@ -34,9 +31,9 @@ router.get("/:id", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-});
+};
 
-router.post("/", async (req, res, next) => {
+const add = async (req, res, next) => {
   try {
     const { error } = addSchema.validate(req.body);
     if (error) {
@@ -47,9 +44,9 @@ router.post("/", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-});
+};
 
-router.put("/:id", async (req, res, next) => {
+const updateById = async (req, res, next) => {
   try {
     // const { error } = addSchema.validate(req.body);
     // if (error) {
@@ -66,9 +63,9 @@ router.put("/:id", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-});
+};
 
-router.delete("/:id", async (req, res, next) => {
+const deleteById = async (req, res, next) => {
   try {
     const { id } = req.params;
     const result = await books.deleteById(id);
@@ -77,10 +74,11 @@ router.delete("/:id", async (req, res, next) => {
       throw HttpError(404, "Not found!");
     }
 
-    res.json({message: "Delete successfull!!!"})
+    // res.status(204).send();
+    res.json({ message: "Delete successfull!!!" });
   } catch (error) {
     next(error);
   }
-});
+};
 
-module.exports = router;
+module.exports = { getAll, getById, add, updateById, deleteById };
