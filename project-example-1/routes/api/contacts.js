@@ -7,8 +7,10 @@ const { HttpError } = require("../../helpers");
 const router = express.Router();
 
 const addSchema = Joi.object({
-  title: Joi.string().required(),
-  author: Joi.string().required(),
+  name: Joi.string().required(),
+  email: Joi.string().required().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
+    .messages({ "string.email": "Email must be a valid email address" }),
+  phone: Joi.string().required(),
 });
 
 router.get("/", async (req, res, next) => {
@@ -42,7 +44,7 @@ router.post("/", async (req, res, next) => {
     if (error) {
       throw HttpError(400, error.message);
     }
-    const result = await contacts.add(req.body);
+    const result = await contacts.addContact(req.body);
     res.status(201).json(result);
   } catch (error) {
     next(error);
@@ -57,7 +59,7 @@ router.put("/:id", async (req, res, next) => {
     // }
 
     const { id } = req.params;
-    const result = await contacts.updateById(id, req.body);
+    const result = await contacts.updateContact(id, req.body);
     if (!result) {
       throw HttpError(404, "Not found");
     }
@@ -71,7 +73,7 @@ router.put("/:id", async (req, res, next) => {
 router.delete("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
-    const result = await contacts.deleteById(id);
+    const result = await contacts.removeContact(id);
 
     if (!result) {
       throw HttpError(404, "Not found!");
